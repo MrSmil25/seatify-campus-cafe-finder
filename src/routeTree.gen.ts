@@ -10,33 +10,128 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as BookingsRouteImport } from './routes/bookings'
+import { Route as CheckInRouteImport } from './routes/check-in'
+import { Route as ExploreRouteImport } from './routes/explore'
+import { Route as PartnerRouteImport } from './routes/partner'
+import { Route as ProfileRouteImport } from './routes/profile'
+import { Route as SavedRouteImport } from './routes/saved'
+import { Route as CafesSlugRouteImport } from './routes/cafes.$slug'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BookingsRoute = BookingsRouteImport.update({
+  id: '/bookings',
+  path: '/bookings',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CheckInRoute = CheckInRouteImport.update({
+  id: '/check-in',
+  path: '/check-in',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ExploreRoute = ExploreRouteImport.update({
+  id: '/explore',
+  path: '/explore',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PartnerRoute = PartnerRouteImport.update({
+  id: '/partner',
+  path: '/partner',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProfileRoute = ProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SavedRoute = SavedRouteImport.update({
+  id: '/saved',
+  path: '/saved',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CafesSlugRoute = CafesSlugRouteImport.update({
+  id: '/cafes/$slug',
+  path: '/cafes/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/bookings': typeof BookingsRoute
+  '/check-in': typeof CheckInRoute
+  '/explore': typeof ExploreRoute
+  '/partner': typeof PartnerRoute
+  '/profile': typeof ProfileRoute
+  '/saved': typeof SavedRoute
+  '/cafes/$slug': typeof CafesSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/bookings': typeof BookingsRoute
+  '/check-in': typeof CheckInRoute
+  '/explore': typeof ExploreRoute
+  '/partner': typeof PartnerRoute
+  '/profile': typeof ProfileRoute
+  '/saved': typeof SavedRoute
+  '/cafes/$slug': typeof CafesSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/bookings': typeof BookingsRoute
+  '/check-in': typeof CheckInRoute
+  '/explore': typeof ExploreRoute
+  '/partner': typeof PartnerRoute
+  '/profile': typeof ProfileRoute
+  '/saved': typeof SavedRoute
+  '/cafes/$slug': typeof CafesSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/bookings'
+    | '/check-in'
+    | '/explore'
+    | '/partner'
+    | '/profile'
+    | '/saved'
+    | '/cafes/$slug'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/bookings'
+    | '/check-in'
+    | '/explore'
+    | '/partner'
+    | '/profile'
+    | '/saved'
+    | '/cafes/$slug'
+  id:
+    | '__root__'
+    | '/'
+    | '/bookings'
+    | '/check-in'
+    | '/explore'
+    | '/partner'
+    | '/profile'
+    | '/saved'
+    | '/cafes/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  BookingsRoute: typeof BookingsRoute
+  CheckInRoute: typeof CheckInRoute
+  ExploreRoute: typeof ExploreRoute
+  PartnerRoute: typeof PartnerRoute
+  ProfileRoute: typeof ProfileRoute
+  SavedRoute: typeof SavedRoute
+  CafesSlugRoute: typeof CafesSlugRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +143,67 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/bookings': {
+      id: '/bookings'
+      path: '/bookings'
+      fullPath: '/bookings'
+      preLoaderRoute: typeof BookingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/check-in': {
+      id: '/check-in'
+      path: '/check-in'
+      fullPath: '/check-in'
+      preLoaderRoute: typeof CheckInRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/explore': {
+      id: '/explore'
+      path: '/explore'
+      fullPath: '/explore'
+      preLoaderRoute: typeof ExploreRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/partner': {
+      id: '/partner'
+      path: '/partner'
+      fullPath: '/partner'
+      preLoaderRoute: typeof PartnerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/profile': {
+      id: '/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof ProfileRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/saved': {
+      id: '/saved'
+      path: '/saved'
+      fullPath: '/saved'
+      preLoaderRoute: typeof SavedRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/cafes/$slug': {
+      id: '/cafes/$slug'
+      path: '/cafes/$slug'
+      fullPath: '/cafes/$slug'
+      preLoaderRoute: typeof CafesSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  BookingsRoute: BookingsRoute,
+  CheckInRoute: CheckInRoute,
+  ExploreRoute: ExploreRoute,
+  PartnerRoute: PartnerRoute,
+  ProfileRoute: ProfileRoute,
+  SavedRoute: SavedRoute,
+  CafesSlugRoute: CafesSlugRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

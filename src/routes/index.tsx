@@ -46,7 +46,7 @@ function Index() {
               <span className="mt-1 size-3 rounded-full bg-success motion-safe:animate-pulse" />
             </div>
             <div className="mt-5 flex items-end justify-between border-b border-border pb-4"><div><p className="text-sm font-semibold text-success-foreground">Available now</p><p className="mt-1 text-xs text-muted-foreground">18 / 50 seats occupied</p></div><strong className="font-display text-4xl">32</strong></div>
-            <Button asChild variant="ghost" className="mt-3 w-full justify-between px-0"><Link to="/cafes/feb-coffee-corner">View cafe <ArrowRight className="size-4" /></Link></Button>
+            <Button asChild variant="ghost" className="mt-3 w-full justify-between px-0"><Link to="/cafes/$slug" params={{ slug: "feb-coffee-corner" }}>View cafe <ArrowRight className="size-4" /></Link></Button>
           </div>
         </div>
       </section>

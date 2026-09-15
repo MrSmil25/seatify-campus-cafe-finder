@@ -46,7 +46,7 @@ export function CafeCard({ cafe }: { cafe: Cafe }) {
         <div className="mt-4 flex flex-wrap gap-2">
           {cafe.tags.map((tag) => <span key={tag} className="rounded-full bg-secondary px-3 py-1 text-xs text-secondary-foreground">{tag}</span>)}
         </div>
-        <Button asChild className="mt-5 w-full"><Link to="/cafes/feb-coffee-corner">See details</Link></Button>
+        <Button asChild className="mt-5 w-full"><Link to="/cafes/$slug" params={{ slug: "feb-coffee-corner" }}>See details</Link></Button>
       </div>
     </article>
   );
