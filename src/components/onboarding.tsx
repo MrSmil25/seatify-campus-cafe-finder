@@ -6,7 +6,7 @@ import studyImage from "../assets/the-study-club.jpg";
 import { useSeatify } from "../lib/seatify-context";
 import { Button } from "./ui/button";
 
-const slides = [
+const slides: [{ image: string; eyebrow: string; title: string; text: string; icon: typeof Coffee }, ...Array<{ image: string; eyebrow: string; title: string; text: string; icon: typeof Coffee }>] = [
   { image: heroImage, eyebrow: "Welcome to Seatify", title: "Never Waste Time Finding a Seat Again", text: "Discover study-friendly cafes around your campus with real-time seat availability.", icon: MapPinned },
   { image: libraryImage, eyebrow: "Plan with confidence", title: "Know Before You Go", text: "See available seats, queue times, and cafe atmosphere before arriving.", icon: Coffee },
   { image: studyImage, eyebrow: "Explore beyond the usual", title: "Support Hidden Gem Cafes", text: "Discover underrated cafes around campus while helping local businesses grow.", icon: Coffee },

@@ -19,7 +19,7 @@ export type Cafe = {
   socialProof: string;
 };
 
-export const cafes: Cafe[] = [
+export const cafes: [Cafe, ...Cafe[]] = [
   {
     id: "fib-corner",
     slug: "fib-corner-coffee",
@@ -91,6 +91,6 @@ export const recentVisits = [
   { cafe: "Library Brew", date: "Last Friday", duration: "2 hours", image: libraryImage },
 ];
 
-export function getCafe(slug: string) {
-  return cafes.find((cafe) => cafe.slug === slug) ?? cafes[1];
+export function getCafe(slug: string): Cafe {
+  return cafes.find((cafe) => cafe.slug === slug) ?? cafes[0];
 }
