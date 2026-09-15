@@ -11,7 +11,7 @@ export type Cafe = {
   capacity: number;
   rating: number;
   distance: string;
-  noise: "Quiet" | "Moderate" | "Lively";
+  noise: "Tenang" | "Sedang" | "Ramai";
   facilities: string[];
   vibes: string[];
   status: string;
@@ -29,28 +29,28 @@ export const cafes: [Cafe, ...Cafe[]] = [
     capacity: 50,
     rating: 4.8,
     distance: "240m",
-    noise: "Quiet",
-    facilities: ["WiFi", "Power outlets", "AC"],
-    vibes: ["Quiet Study", "WFC Friendly"],
-    status: "Plenty of seats",
-    recommendation: "Quiet environment · Many power outlets · Good for studying",
-    socialProof: "A favorite before morning lectures",
+    noise: "Tenang",
+    facilities: ["WiFi", "Colokan", "AC"],
+    vibes: ["Fokus Belajar", "Produktif"],
+    status: "Banyak kursi tersedia",
+    recommendation: "Suasana tenang · Banyak colokan · Cocok untuk belajar",
+    socialProof: "Favorit sebelum kelas pagi",
   },
   {
     id: "feb-corner",
     slug: "feb-coffee-corner",
     name: "FEB Coffee Corner",
     image: febImage,
-    occupied: 20,
+    occupied: 18,
     capacity: 50,
     rating: 4.6,
     distance: "300m",
-    noise: "Moderate",
-    facilities: ["WiFi", "Power outlets", "Group tables"],
-    vibes: ["WFC Friendly", "Group Discussion"],
-    status: "30 seats available",
-    recommendation: "Reliable WiFi · Spacious tables · Quick coffee",
-    socialProof: "Popular among UI students",
+    noise: "Sedang",
+    facilities: ["Coffee", "WiFi", "Colokan", "Cocok WFC"],
+    vibes: ["Produktif", "Diskusi Kelompok"],
+    status: "Tersedia",
+    recommendation: "WiFi stabil · Meja luas · Kopi cepat",
+    socialProof: "Populer di kalangan mahasiswa UI",
   },
   {
     id: "library-brew",
@@ -61,12 +61,12 @@ export const cafes: [Cafe, ...Cafe[]] = [
     capacity: 44,
     rating: 4.8,
     distance: "550m",
-    noise: "Quiet",
-    facilities: ["WiFi", "AC", "Power outlets"],
-    vibes: ["Quiet Study", "WFC Friendly"],
-    status: "13 seats available",
-    recommendation: "Library-close · Soft lighting · Focus-friendly",
-    socialProof: "Trending near the central library",
+    noise: "Tenang",
+    facilities: ["WiFi", "AC", "Colokan"],
+    vibes: ["Fokus Belajar", "Produktif"],
+    status: "13 kursi tersedia",
+    recommendation: "Dekat perpustakaan · Cahaya lembut · Mudah fokus",
+    socialProof: "Sedang tren dekat Perpustakaan Pusat",
   },
   {
     id: "study-club",
@@ -77,18 +77,18 @@ export const cafes: [Cafe, ...Cafe[]] = [
     capacity: 36,
     rating: 4.7,
     distance: "800m",
-    noise: "Lively",
-    facilities: ["WiFi", "Group tables", "Large tables"],
-    vibes: ["Group Discussion", "Casual Hangout"],
-    status: "12 seats available",
-    recommendation: "Large tables · Flexible seating · Social energy",
-    socialProof: "Students from other faculties are discovering this place",
+    noise: "Ramai",
+    facilities: ["WiFi", "Meja kelompok", "Meja besar"],
+    vibes: ["Diskusi Kelompok", "Santai"],
+    status: "12 kursi tersedia",
+    recommendation: "Meja besar · Kursi fleksibel · Suasana sosial",
+    socialProof: "Mulai ditemukan mahasiswa dari fakultas lain",
   },
 ];
 
 export const recentVisits = [
-  { cafe: "FEB Coffee Corner", date: "Yesterday", duration: "3 hours", image: febImage },
-  { cafe: "Library Brew", date: "Last Friday", duration: "2 hours", image: libraryImage },
+  { cafe: "FEB Coffee Corner", date: "Kemarin", duration: "3 jam", image: febImage },
+  { cafe: "Library Brew", date: "Jumat lalu", duration: "2 jam", image: libraryImage },
 ];
 
 export function getCafe(slug: string): Cafe {

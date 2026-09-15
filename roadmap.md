@@ -1,9 +1,11 @@
-# Seatify startup MVP upgrade
+# Seatify premium Indonesian product
 
-- [ ] Add three-screen first-time onboarding
-- [ ] Build personalized home and recommendation sections
-- [ ] Enrich shared cafe data, cards, atmosphere, and detail views
-- [ ] Add persistent saved cafes and recent activity
-- [ ] Build reservation selection and QR confirmation flow
-- [ ] Expand bookings empty/confirmed states and student profile
-- [ ] Add restrained animations and verify mobile/desktop flows
+- [x] Add three-screen first-time onboarding
+- [x] Build personalized home and recommendation sections
+- [x] Enrich shared cafe data, cards, atmosphere, and detail views
+- [x] Add persistent saved cafes and recent activity
+- [x] Build reservation selection and QR confirmation flow
+- [x] Expand bookings empty/confirmed states and student profile
+- [ ] Localize the complete experience into Indonesian
+- [ ] Strengthen the serif, sans, and geometric data typography system
+- [ ] Verify mobile and desktop flows without runtime errors
