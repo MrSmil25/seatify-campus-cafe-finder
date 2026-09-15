@@ -6,11 +6,11 @@ import { Button } from "./ui/button";
 import { useSeatify } from "../lib/seatify-context";
 
 const navItems = [
-  { label: "Home", to: "/", icon: House },
-  { label: "Explore", to: "/explore", icon: Compass },
-  { label: "Saved", to: "/saved", icon: Heart },
-  { label: "Bookings", to: "/bookings", icon: CalendarDays },
-  { label: "Profile", to: "/profile", icon: UserRound },
+  { label: "Beranda", to: "/", icon: House },
+  { label: "Jelajahi", to: "/explore", icon: Compass },
+  { label: "Tersimpan", to: "/saved", icon: Heart },
+  { label: "Reservasi", to: "/bookings", icon: CalendarDays },
+  { label: "Profil", to: "/profile", icon: UserRound },
 ] as const;
 
 export function SeatifyShell({ children }: { children: ReactNode }) {
@@ -27,28 +27,28 @@ export function SeatifyShell({ children }: { children: ReactNode }) {
             <span className="grid size-9 place-items-center rounded-md bg-primary font-display text-xl text-primary-foreground">S</span>
             <span className="font-display text-2xl font-semibold">Seatify</span>
           </Link>
-          <nav className="hidden items-center gap-7 md:flex" aria-label="Primary navigation">
-            <Link to="/explore" className="text-sm text-muted-foreground transition-colors hover:text-foreground" activeProps={{ className: "text-sm font-semibold text-foreground" }}>Explore</Link>
-            <Link to="/saved" className="text-sm text-muted-foreground transition-colors hover:text-foreground" activeProps={{ className: "text-sm font-semibold text-foreground" }}>Saved</Link>
-            <Link to="/bookings" className="text-sm text-muted-foreground transition-colors hover:text-foreground" activeProps={{ className: "text-sm font-semibold text-foreground" }}>Bookings</Link>
-            <Link to="/partner" className="text-sm text-muted-foreground transition-colors hover:text-foreground" activeProps={{ className: "text-sm font-semibold text-foreground" }}>For Cafe Partners</Link>
-            <Button asChild size="sm"><Link to="/explore">Find a seat</Link></Button>
+          <nav className="hidden items-center gap-7 md:flex" aria-label="Navigasi utama">
+            <Link to="/explore" className="text-sm text-muted-foreground transition-colors hover:text-foreground" activeProps={{ className: "text-sm font-semibold text-foreground" }}>Jelajahi</Link>
+            <Link to="/saved" className="text-sm text-muted-foreground transition-colors hover:text-foreground" activeProps={{ className: "text-sm font-semibold text-foreground" }}>Tersimpan</Link>
+            <Link to="/bookings" className="text-sm text-muted-foreground transition-colors hover:text-foreground" activeProps={{ className: "text-sm font-semibold text-foreground" }}>Reservasi</Link>
+            <Link to="/partner" className="text-sm text-muted-foreground transition-colors hover:text-foreground" activeProps={{ className: "text-sm font-semibold text-foreground" }}>Mitra Cafe</Link>
+            <Button asChild size="sm"><Link to="/explore">Cari kursi</Link></Button>
           </nav>
-          <Button className="md:hidden" variant="ghost" size="icon" aria-label="Open menu" onClick={() => setMenuOpen((open) => !open)}>
+          <Button className="md:hidden" variant="ghost" size="icon" aria-label="Buka menu" onClick={() => setMenuOpen((open) => !open)}>
             <Menu className="size-5" />
           </Button>
         </div>
         {menuOpen && (
           <div className="border-t border-border bg-background px-5 py-4 md:hidden">
-            <Link to="/partner" onClick={() => setMenuOpen(false)} className="block py-2 text-sm font-medium">For Cafe Partners</Link>
-            <Link to="/check-in" onClick={() => setMenuOpen(false)} className="block py-2 text-sm font-medium">QR Check-in</Link>
+            <Link to="/partner" onClick={() => setMenuOpen(false)} className="block py-2 text-sm font-medium">Mitra Cafe</Link>
+            <Link to="/check-in" onClick={() => setMenuOpen(false)} className="block py-2 text-sm font-medium">Check-in QR</Link>
           </div>
         )}
       </header>}
 
       <main className={showChrome ? "pb-24 md:pb-0" : ""}>{children}</main>
 
-      {showChrome && <nav className="fixed inset-x-0 bottom-0 z-50 border-t border-border bg-background/95 px-2 pb-[max(0.5rem,env(safe-area-inset-bottom))] pt-2 backdrop-blur-xl md:hidden" aria-label="Mobile navigation">
+      {showChrome && <nav className="fixed inset-x-0 bottom-0 z-50 border-t border-border bg-background/95 px-2 pb-[max(0.5rem,env(safe-area-inset-bottom))] pt-2 backdrop-blur-xl md:hidden" aria-label="Navigasi seluler">
         <div className="mx-auto grid max-w-lg grid-cols-5">
           {navItems.map(({ label, to, icon: Icon }) => {
             const active = to === "/" ? pathname === "/" : pathname.startsWith(to);
