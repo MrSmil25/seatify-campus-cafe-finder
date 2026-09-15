@@ -1,0 +1,6 @@
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { Heart } from "lucide-react";
+import { Button } from "../components/ui/button";
+export const Route = createFileRoute("/saved")({ head: () => ({ meta: [{ title: "Saved Cafes — Seatify" },{ name: "description", content: "Your saved campus cafes and study spots." },{ property: "og:title", content: "Saved Cafes — Seatify" },{ property: "og:description", content: "Your saved campus study spots." },{ property: "og:type", content: "website" },{ name: "twitter:card", content: "summary_large_image" }] }), component: Saved });
+function Saved(){return <Empty icon={Heart} title="Your favorite spots, together" text="Save cafes you love and check their availability at a glance." />}
+function Empty({icon:Icon,title,text}:{icon:typeof Heart;title:string;text:string}){return <div className="mx-auto grid min-h-[65vh] max-w-md place-items-center px-5 text-center"><div><span className="mx-auto grid size-16 place-items-center rounded-full bg-secondary"><Icon className="size-7 text-primary" /></span><h1 className="mt-6 font-display text-4xl font-semibold">{title}</h1><p className="mt-3 text-sm leading-6 text-muted-foreground">{text}</p><Button asChild className="mt-7"><Link to="/explore">Explore cafes</Link></Button></div></div>}
