@@ -3,6 +3,7 @@ import { CalendarDays, Compass, Heart, House, Menu, UserRound } from "lucide-rea
 import { useState, type ReactNode } from "react";
 
 import { Button } from "./ui/button";
+import { useSeatify } from "../lib/seatify-context";
 
 const navItems = [
   { label: "Home", to: "/", icon: House },
@@ -15,10 +16,12 @@ const navItems = [
 export function SeatifyShell({ children }: { children: ReactNode }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const pathname = useRouterState({ select: (state) => state.location.pathname });
+  const { hydrated, onboardingComplete } = useSeatify();
+  const showChrome = hydrated && onboardingComplete;
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <header className="sticky top-0 z-50 border-b border-border/70 bg-background/90 backdrop-blur-xl">
+      {showChrome && <header className="sticky top-0 z-50 border-b border-border/70 bg-background/90 backdrop-blur-xl">
         <div className="mx-auto flex h-18 max-w-7xl items-center justify-between px-5 lg:px-8">
           <Link to="/" className="flex items-center gap-2" aria-label="Seatify home">
             <span className="grid size-9 place-items-center rounded-md bg-primary font-display text-xl text-primary-foreground">S</span>
@@ -41,11 +44,11 @@ export function SeatifyShell({ children }: { children: ReactNode }) {
             <Link to="/check-in" onClick={() => setMenuOpen(false)} className="block py-2 text-sm font-medium">QR Check-in</Link>
           </div>
         )}
-      </header>
+      </header>}
 
-      <main className="pb-24 md:pb-0">{children}</main>
+      <main className={showChrome ? "pb-24 md:pb-0" : ""}>{children}</main>
 
-      <nav className="fixed inset-x-0 bottom-0 z-50 border-t border-border bg-background/95 px-2 pb-[max(0.5rem,env(safe-area-inset-bottom))] pt-2 backdrop-blur-xl md:hidden" aria-label="Mobile navigation">
+      {showChrome && <nav className="fixed inset-x-0 bottom-0 z-50 border-t border-border bg-background/95 px-2 pb-[max(0.5rem,env(safe-area-inset-bottom))] pt-2 backdrop-blur-xl md:hidden" aria-label="Mobile navigation">
         <div className="mx-auto grid max-w-lg grid-cols-5">
           {navItems.map(({ label, to, icon: Icon }) => {
             const active = to === "/" ? pathname === "/" : pathname.startsWith(to);
@@ -57,7 +60,7 @@ export function SeatifyShell({ children }: { children: ReactNode }) {
             );
           })}
         </div>
-      </nav>
+      </nav>}
     </div>
   );
 }
