@@ -1,0 +1,5 @@
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { CalendarDays } from "lucide-react";
+import { Button } from "../components/ui/button";
+export const Route = createFileRoute("/bookings")({ head: () => ({ meta: [{ title: "Bookings — Seatify" },{ name: "description", content: "See your upcoming Seatify cafe reservations." },{ property: "og:title", content: "Bookings — Seatify" },{ property: "og:description", content: "See your upcoming cafe reservations." },{ property: "og:type", content: "website" },{ name: "twitter:card", content: "summary_large_image" }] }), component: Bookings });
+function Bookings(){return <div className="mx-auto grid min-h-[65vh] max-w-md place-items-center px-5 text-center"><div><span className="mx-auto grid size-16 place-items-center rounded-full bg-secondary"><CalendarDays className="size-7 text-primary" /></span><h1 className="mt-6 font-display text-4xl font-semibold">No plans yet</h1><p className="mt-3 text-sm leading-6 text-muted-foreground">Reserve a seat and your upcoming study sessions will appear here.</p><Button asChild className="mt-7"><Link to="/explore">Find a cafe</Link></Button></div></div>}
