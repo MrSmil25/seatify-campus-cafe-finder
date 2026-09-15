@@ -1,73 +1,32 @@
 import { Link, createFileRoute } from "@tanstack/react-router";
-import { ArrowRight, Clock3, Coffee, MapPin, Sparkles, Users, Wifi } from "lucide-react";
-
-import heroImage from "../assets/seatify-hero.jpg";
-import febImage from "../assets/feb-coffee.jpg";
-import libraryImage from "../assets/library-brew.jpg";
-import studyImage from "../assets/the-study-club.jpg";
-import { CafeCard, type Cafe } from "../components/cafe-card";
+import { ArrowRight, Bell, Clock3, Flame, MapPin, Sparkles } from "lucide-react";
+import { CafeCard } from "../components/cafe-card";
+import { Onboarding } from "../components/onboarding";
 import { Button } from "../components/ui/button";
+import { cafes, recentVisits } from "../lib/seatify-data";
+import { useSeatify } from "../lib/seatify-context";
 
-export const Route = createFileRoute("/")({
-  head: () => ({ meta: [
-    { title: "Seatify — Find Your Perfect Study Spot" },
-    { name: "description", content: "Find study-friendly campus cafes with live seat and queue availability." },
-    { property: "og:title", content: "Seatify — Find Your Perfect Study Spot" },
-    { property: "og:description", content: "Find study-friendly campus cafes with live seat availability." },
-    { property: "og:type", content: "website" },
-    { name: "twitter:card", content: "summary_large_image" },
-  ] }),
-  component: Index,
-});
+export const Route = createFileRoute("/")({ head: () => ({ meta: [
+  { title: "Seatify — Your Campus Study Companion" }, { name: "description", content: "Personalized cafe recommendations with live seats around Universitas Indonesia." },
+  { property: "og:title", content: "Seatify — Your Campus Study Companion" }, { property: "og:description", content: "Find your ideal study cafe with live availability." },
+  { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" },
+] }), component: Home });
 
-const cafes: Cafe[] = [
-  { name: "FEB Coffee Corner", image: febImage, occupied: 18, capacity: 50, rating: 4.8, distance: "300m", tags: ["WiFi", "Power", "Quiet"], status: "Available now" },
-  { name: "Library Brew", image: libraryImage, occupied: 31, capacity: 44, rating: 4.7, distance: "550m", tags: ["WFC friendly", "AC", "Quiet"], status: "13 seats free" },
-  { name: "The Study Club", image: studyImage, occupied: 24, capacity: 36, rating: 4.6, distance: "800m", tags: ["Group tables", "WiFi"], status: "12 seats free" },
-];
+function Home() {
+  const { hydrated, onboardingComplete } = useSeatify();
+  if (!hydrated) return <div className="min-h-screen bg-background" />;
+  if (!onboardingComplete) return <Onboarding />;
+  const featured = cafes[0];
+  return <div className="mx-auto max-w-7xl px-5 py-8 lg:px-8 lg:py-14">
+    <header className="flex items-start justify-between"><div><p className="text-sm text-muted-foreground">Good Morning, Student 👋</p><h1 className="mt-1 font-display text-4xl font-semibold sm:text-5xl">Find your flow today.</h1><p className="mt-3 flex items-center gap-1.5 text-sm text-muted-foreground"><MapPin className="size-4 text-primary" />Universitas Indonesia</p></div><Button size="icon" variant="secondary" aria-label="Notifications"><Bell className="size-5" /></Button></header>
+    <section className="mt-9"><div className="mb-4 flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground"><Sparkles className="size-4 text-accent-strong" />Perfect spots for you today</div><div className="group relative min-h-[470px] overflow-hidden rounded-xl lg:min-h-[560px]"><img src={featured.image} alt="FIB Corner Coffee interior" width={1200} height={912} className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.02]" /><div className="absolute inset-0 bg-[linear-gradient(to_top,var(--primary)_0%,color-mix(in_oklab,var(--primary)_50%,transparent)_48%,transparent_82%)]" /><div className="absolute inset-x-0 bottom-0 p-6 text-primary-foreground sm:p-9"><div className="flex items-center gap-2 text-sm font-semibold"><span className="size-2.5 rounded-full bg-success motion-safe:animate-pulse" />Plenty of seats available</div><div className="mt-3 flex flex-col justify-between gap-5 sm:flex-row sm:items-end"><div><h2 className="font-display text-4xl font-semibold sm:text-5xl">{featured.name}</h2><p className="mt-2 text-sm opacity-75">28 seats available · {featured.distance} away · ★ {featured.rating}</p><div className="mt-4 flex flex-wrap gap-2">{["Quiet environment", "Many power outlets", "Good for studying"].map((tag) => <span key={tag} className="rounded-full border border-primary-foreground/25 bg-primary/30 px-3 py-1.5 text-xs backdrop-blur">{tag}</span>)}</div></div><Button asChild variant="secondary" size="lg"><Link to="/cafes/$slug" params={{ slug: featured.slug }}>View cafe <ArrowRight className="size-4" /></Link></Button></div></div></div></section>
+    <RecommendationRow title="Available Now" subtitle="A seat is waiting" cafes={cafes.slice(1,4)} />
+    <RecommendationRow title="Trending Around Campus" subtitle="Popular with UI students" cafes={[cafes[2], cafes[1], cafes[0]]} icon={<Flame className="size-4 text-accent-strong" />} />
+    <RecommendationRow title="Hidden Gems" subtitle="Worth walking a little farther" cafes={[cafes[3], cafes[0], cafes[2]]} />
+    <section className="mt-14 pb-6"><div className="flex items-end justify-between"><div><p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">Your recent visits</p><h2 className="mt-2 font-display text-3xl font-semibold">Keep your momentum</h2></div></div><div className="mt-5 grid gap-3 sm:grid-cols-2">{recentVisits.map((visit) => <div key={visit.cafe} className="flex items-center gap-4 rounded-lg border border-border bg-card p-3"><img src={visit.image} alt="" width={1200} height={912} loading="lazy" className="size-18 rounded-md object-cover" /><div className="flex-1"><p className="font-display text-lg font-semibold">{visit.cafe}</p><p className="mt-1 text-xs text-muted-foreground">{visit.date}</p></div><span className="flex items-center gap-1 text-xs text-muted-foreground"><Clock3 className="size-3.5" />{visit.duration}</span></div>)}</div></section>
+  </div>;
+}
 
-function Index() {
-  return (
-    <>
-      <section className="mx-auto max-w-7xl px-5 pb-14 pt-8 lg:px-8 lg:pb-24 lg:pt-14">
-        <div className="mb-8 max-w-4xl lg:mb-12">
-          <p className="mb-4 flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground"><Sparkles className="size-4 text-accent-strong" /> Campus life, made calmer</p>
-          <h1 className="max-w-3xl font-display text-5xl font-semibold leading-[1.02] sm:text-6xl lg:text-8xl">Find Your Perfect Study Spot</h1>
-          <div className="mt-6 flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
-            <p className="max-w-xl text-base leading-7 text-muted-foreground lg:text-lg">Discover cafes around campus with available seats before you arrive.</p>
-            <Button asChild size="lg"><Link to="/explore">Explore nearby <ArrowRight className="size-4" /></Link></Button>
-          </div>
-        </div>
-        <div className="relative overflow-hidden rounded-xl">
-          <img src={heroImage} alt="Students studying in a warm campus cafe" width={1536} height={1024} fetchPriority="high" className="h-[54vh] min-h-[420px] w-full object-cover lg:h-[64vh]" />
-          <div className="absolute inset-x-4 bottom-4 rounded-lg bg-background/94 p-5 shadow-xl backdrop-blur-md sm:left-auto sm:w-96 lg:bottom-7 lg:right-7 lg:p-6">
-            <div className="flex items-start justify-between gap-3">
-              <div><p className="text-xs text-muted-foreground">Closest to you · 3 min walk</p><h2 className="mt-1 font-display text-2xl font-semibold">FEB Coffee Corner</h2></div>
-              <span className="mt-1 size-3 rounded-full bg-success motion-safe:animate-pulse" />
-            </div>
-            <div className="mt-5 flex items-end justify-between border-b border-border pb-4"><div><p className="text-sm font-semibold text-success-foreground">Available now</p><p className="mt-1 text-xs text-muted-foreground">18 / 50 seats occupied</p></div><strong className="font-display text-4xl">32</strong></div>
-            <Button asChild variant="ghost" className="mt-3 w-full justify-between px-0"><Link to="/cafes/$slug" params={{ slug: "feb-coffee-corner" }}>View cafe <ArrowRight className="size-4" /></Link></Button>
-          </div>
-        </div>
-      </section>
-
-      <section className="border-y border-border bg-secondary/55 py-14 lg:py-20">
-        <div className="mx-auto grid max-w-7xl gap-8 px-5 sm:grid-cols-3 lg:px-8">
-          {[{icon: MapPin, title: "Around your campus", text: "Curated spots within an easy walk."},{icon: Users, title: "Live seat updates", text: "Know the atmosphere before you go."},{icon: Wifi, title: "Made for focus", text: "Filter for WiFi, outlets, quiet and groups."}].map(({icon: Icon,title,text}) => <div key={title} className="flex gap-4"><Icon className="mt-1 size-5 shrink-0 text-primary" /><div><h2 className="font-display text-xl font-semibold">{title}</h2><p className="mt-1 text-sm leading-6 text-muted-foreground">{text}</p></div></div>)}
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-7xl px-5 py-16 lg:px-8 lg:py-24">
-        <div className="mb-9 flex items-end justify-between gap-4"><div><p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">Open right now</p><h2 className="mt-2 font-display text-4xl font-semibold lg:text-5xl">Good places to settle in</h2></div><Button asChild variant="ghost" className="hidden sm:inline-flex"><Link to="/explore">See all <ArrowRight className="size-4" /></Link></Button></div>
-        <div className="grid gap-5 md:grid-cols-3">{cafes.map((cafe) => <CafeCard key={cafe.name} cafe={cafe} />)}</div>
-      </section>
-
-      <section className="mx-auto max-w-7xl px-5 pb-20 lg:px-8 lg:pb-28">
-        <div className="grid overflow-hidden rounded-xl bg-primary text-primary-foreground lg:grid-cols-[1fr_1.1fr]">
-          <div className="p-8 lg:p-14"><Coffee className="size-8 opacity-70" /><h2 className="mt-8 font-display text-4xl font-semibold lg:text-5xl">Arrive with confidence.</h2><p className="mt-4 max-w-md leading-7 opacity-75">Seatify blends live community check-ins with cafe updates, so your next study session starts without the guesswork.</p><div className="mt-8 flex items-center gap-3 text-sm"><Clock3 className="size-4" /> Fresh updates throughout the day</div></div>
-          <img src={studyImage} alt="Students collaborating at a cafe table" width={1200} height={912} loading="lazy" className="h-full min-h-72 w-full object-cover opacity-90" />
-        </div>
-      </section>
-    </>
-  );
+function RecommendationRow({ title, subtitle, cafes: items, icon }: { title: string; subtitle: string; cafes: typeof cafes; icon?: React.ReactNode }) {
+  return <section className="mt-14"><div className="mb-5 flex items-end justify-between"><div><p className="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">{icon}{subtitle}</p><h2 className="mt-2 font-display text-3xl font-semibold sm:text-4xl">{title}</h2></div><Button asChild variant="ghost" className="hidden sm:inline-flex"><Link to="/explore">See all <ArrowRight className="size-4" /></Link></Button></div><div className="-mx-5 flex snap-x gap-4 overflow-x-auto px-5 pb-5 sm:mx-0 sm:grid sm:grid-cols-2 sm:px-0 lg:grid-cols-3">{items.map((cafe) => <div key={cafe.id} className="w-[82vw] max-w-sm shrink-0 snap-start sm:w-auto sm:max-w-none"><CafeCard cafe={cafe} /></div>)}</div></section>;
 }
