@@ -12,6 +12,7 @@ import { useEffect, type ReactNode } from "react";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { SeatifyShell } from "../components/seatify-shell";
+import { SeatifyProvider } from "../lib/seatify-context";
 
 function NotFoundComponent() {
   return (
@@ -122,7 +123,7 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <SeatifyShell><Outlet /></SeatifyShell>
+      <SeatifyProvider><SeatifyShell><Outlet /></SeatifyShell></SeatifyProvider>
     </QueryClientProvider>
   );
 }
