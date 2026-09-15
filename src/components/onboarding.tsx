@@ -15,7 +15,7 @@ const slides = [
 export function Onboarding() {
   const [step, setStep] = useState(0);
   const { completeOnboarding } = useSeatify();
-  const slide = slides[step];
+  const slide = slides[step] ?? slides[0];
   const Icon = slide.icon;
   return <div className="relative min-h-screen overflow-hidden bg-primary text-primary-foreground">
     <img key={slide.image} src={slide.image} alt="Students enjoying a campus cafe" width={1536} height={1024} className="absolute inset-0 h-full w-full animate-fade-in object-cover" />

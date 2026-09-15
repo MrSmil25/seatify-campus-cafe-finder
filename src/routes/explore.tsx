@@ -4,7 +4,7 @@ import { useState } from "react";
 
 import { CafeCard } from "../components/cafe-card";
 import { Button } from "../components/ui/button";
-import { cafes } from "../lib/seatify-data";
+import { cafes, getCafe } from "../lib/seatify-data";
 
 export const Route = createFileRoute("/explore")({
   head: () => ({ meta: [
@@ -31,7 +31,7 @@ function ExplorePage() {
       <div className="relative min-h-[400px] overflow-hidden rounded-xl border border-border bg-secondary lg:sticky lg:top-24 lg:h-[calc(100vh-8rem)]">
         <div className="absolute inset-0 opacity-50 [background-image:linear-gradient(var(--border)_1px,transparent_1px),linear-gradient(90deg,var(--border)_1px,transparent_1px)] [background-size:48px_48px]" />
         <div className="absolute left-[14%] top-[18%] h-1.5 w-3/4 rotate-12 rounded-full bg-background" /><div className="absolute left-[45%] top-0 h-full w-4 -rotate-12 bg-background" /><div className="absolute left-0 top-[66%] h-4 w-full -rotate-6 bg-background" />
-        {[{l:"30%",t:"28%",n:"28",slug:cafes[0].slug},{l:"67%",t:"44%",n:"30",slug:cafes[1].slug},{l:"40%",t:"74%",n:"13",slug:cafes[2].slug}].map((point) => <div key={point.n} className="absolute" style={{left: point.l, top: point.t}}><Link to="/cafes/$slug" params={{ slug: point.slug }} className="flex items-center gap-1 rounded-full bg-primary px-3 py-2 text-xs font-bold text-primary-foreground shadow-xl"><MapPin className="size-3.5" />{point.n}</Link></div>)}
+        {[{l:"30%",t:"28%",n:"28",slug:getCafe("fib-corner-coffee").slug},{l:"67%",t:"44%",n:"30",slug:getCafe("feb-coffee-corner").slug},{l:"40%",t:"74%",n:"13",slug:getCafe("library-brew").slug}].map((point) => <div key={point.n} className="absolute" style={{left: point.l, top: point.t}}><Link to="/cafes/$slug" params={{ slug: point.slug }} className="flex items-center gap-1 rounded-full bg-primary px-3 py-2 text-xs font-bold text-primary-foreground shadow-xl"><MapPin className="size-3.5" />{point.n}</Link></div>)}
         <div className="absolute bottom-4 left-4 rounded-md bg-card px-4 py-3 text-xs shadow-lg"><strong>{cafes.length} cafes</strong><br /><span className="text-muted-foreground">within 1 km</span></div>
       </div>
       <div><div className="mb-4 flex items-center justify-between"><span className="text-sm text-muted-foreground">{visible.length} places match</span><Button variant="ghost" size="sm"><ListFilter className="size-4" /> Recommended</Button></div><div className="grid gap-5 sm:grid-cols-2">{visible.map((cafe) => <CafeCard key={cafe.name} cafe={cafe} />)}</div></div>
