@@ -3,7 +3,7 @@ import { ArrowRight, Bell, Clock3, Flame, MapPin, Sparkles } from "lucide-react"
 import { CafeCard } from "../components/cafe-card";
 import { Onboarding } from "../components/onboarding";
 import { Button } from "../components/ui/button";
-import { cafes, getCafe, recentVisits } from "../lib/seatify-data";
+import { cafes, getCafe, recentVisits, type Cafe } from "../lib/seatify-data";
 import { useSeatify } from "../lib/seatify-context";
 
 export const Route = createFileRoute("/")({ head: () => ({ meta: [
@@ -27,6 +27,6 @@ function Home() {
   </div>;
 }
 
-function RecommendationRow({ title, subtitle, cafes: items, icon }: { title: string; subtitle: string; cafes: typeof cafes; icon?: React.ReactNode }) {
+function RecommendationRow({ title, subtitle, cafes: items, icon }: { title: string; subtitle: string; cafes: Cafe[]; icon?: React.ReactNode }) {
   return <section className="mt-14"><div className="mb-5 flex items-end justify-between"><div><p className="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">{icon}{subtitle}</p><h2 className="mt-2 font-display text-3xl font-semibold sm:text-4xl">{title}</h2></div><Button asChild variant="ghost" className="hidden sm:inline-flex"><Link to="/explore">See all <ArrowRight className="size-4" /></Link></Button></div><div className="-mx-5 flex snap-x gap-4 overflow-x-auto px-5 pb-5 sm:mx-0 sm:grid sm:grid-cols-2 sm:px-0 lg:grid-cols-3">{items.map((cafe) => <div key={cafe.id} className="w-[82vw] max-w-sm shrink-0 snap-start sm:w-auto sm:max-w-none"><CafeCard cafe={cafe} /></div>)}</div></section>;
 }
