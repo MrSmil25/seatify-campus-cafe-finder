@@ -1,6 +1,9 @@
-# Seatify prototype
+# Seatify startup MVP upgrade
 
-- [x] Create premium mobile-first design system and navigation
-- [x] Build Home, Explore, Cafe Detail, Check-in, and Partner pages
-- [x] Add supporting Saved, Bookings, and Profile destinations
-- [x] Verify desktop and mobile presentation
+- [ ] Add three-screen first-time onboarding
+- [ ] Build personalized home and recommendation sections
+- [ ] Enrich shared cafe data, cards, atmosphere, and detail views
+- [ ] Add persistent saved cafes and recent activity
+- [ ] Build reservation selection and QR confirmation flow
+- [ ] Expand bookings empty/confirmed states and student profile
+- [ ] Add restrained animations and verify mobile/desktop flows
